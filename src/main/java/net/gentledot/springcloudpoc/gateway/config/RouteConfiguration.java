@@ -16,6 +16,11 @@ public class RouteConfiguration {
                     .filters(
                         gatewayFilterSpec -> gatewayFilterSpec.addRequestHeader("Hello", "World"))
                     .uri("http://httpbin.org:80"))
+            .route(predicateSpec ->
+                    predicateSpec.host("*.circuitbreaker.com")
+                        .filters(gatewayFilterSpec -> gatewayFilterSpec
+                            .circuitBreaker(config -> config.setName("mycmd")))
+                        .uri("http://httpbin.org:80"))
             .build();
     }
 }
