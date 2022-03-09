@@ -17,10 +17,10 @@ public class RouteConfiguration {
         return builder.routes()
             .route("user-service", predicateSpec ->
                 predicateSpec.path("/user/**")
-                    .uri("http://localhost:64000"))
+                    .uri("lb://USER-SERVICE/"))
             .route("html-service", predicateSpec ->
                 predicateSpec.path("/html/**")
-                    .uri("http://localhost:64100"))
+                    .uri("lb://HTML-SERVICE/"))
             .build();
     }
 }
