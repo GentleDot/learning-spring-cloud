@@ -15,18 +15,12 @@ public class RouteConfiguration {
         String httpUri = uriConfiguration.getHttpbin();
 
         return builder.routes()
-            .route(predicateSpec ->
-                predicateSpec.path("/get")
-                    .filters(
-                        gatewayFilterSpec -> gatewayFilterSpec.addRequestHeader("Hello", "World"))
-                    .uri(httpUri))
-            .route(predicateSpec ->
-                predicateSpec.host("*.circuitbreaker.com")
-                    .filters(gatewayFilterSpec -> gatewayFilterSpec
-                        .circuitBreaker(config ->
-                            config.setName("mycmd")
-                                .setFallbackUri("forward:/fallback")))
-                    .uri(httpUri))
+            .route("user-service", predicateSpec ->
+                predicateSpec.path("/user/**")
+                    .uri("http://localhost:64000"))
+            .route("html-service", predicateSpec ->
+                predicateSpec.path("/html/**")
+                    .uri("http://localhost:64100"))
             .build();
     }
 }
