@@ -1,0 +1,15 @@
+server:
+  port: 64000
+
+spring:
+  application:
+    name: user-service
+
+eureka:
+  instance:
+    instance-id: user-service-instance
+
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url: http://localhost:8761/eureka/
