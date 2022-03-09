@@ -17,9 +17,15 @@ public class RouteConfiguration {
         return builder.routes()
             .route("user-service", predicateSpec ->
                 predicateSpec.path("/user/**")
-                    .uri("lb://USER-SERVICE/"))
+                    .filters(gatewayFilterSpec ->
+                        gatewayFilterSpec.rewritePath("/user/?(?<segment>.*)", "/${segment}"))
+                    .uri("lb://USER-SERVICE/")
+            )
+
             .route("html-service", predicateSpec ->
                 predicateSpec.path("/html/**")
+                    .filters(gatewayFilterSpec ->
+                        gatewayFilterSpec.rewritePath("/html/?(?<segment>.*)", "/${segment}"))
                     .uri("lb://HTML-SERVICE/"))
             .build();
     }

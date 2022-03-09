@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HtmlServiceController {
 
-    @GetMapping("/html/info")
+    @GetMapping("/info")
     public String info(@Value("${server.port}") String port) {
         return String.format("HtmlService 서비스의 기본 동작 Port: %s", port);
     }
